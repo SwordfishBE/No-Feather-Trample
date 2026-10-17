@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "no_feather_trample",
+  "version": "${version}",
+  "name": "No Feather Trample",
+  "description": "Protects farmland from trampling by players and mobs with Feather Falling or Slow Falling. No Collective required.",
+  "authors": ["SwordfishBE"],
+  "contact": {
+    "homepage": "https://github.com/SwordfishBE/No-Feather-Trample",
+    "sources": "https://github.com/SwordfishBE/No-Feather-Trample",
+    "email": "swordfishbe@locutus.net"
+  },
+  "license": "AGPL-3.0",
+  "icon": "assets/no_feather_trample/icon.png",
+  "environment": "*",
+  "entrypoints": { "main": ["net.no_feather_trample.NoFeatherTrample"] },
+  "mixins": ["no_feather_trample.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "26.3",
+    "java": ">=25",
+    "fabric-api": ">=0.163.0+26.3"
+  },
+  "breaks": { "nofeathertrample": "*" }
+}
