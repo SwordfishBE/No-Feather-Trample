@@ -1,6 +1,9 @@
 package net.no_feather_trample;
 
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.Version;
+import net.fabricmc.loader.impl.game.minecraft.McVersionLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -19,6 +22,24 @@ import net.minecraft.world.level.block.FarmlandBlock;
 
 public class FarmlandGameTests {
     private static final BlockPos SOIL = new BlockPos(2, 1, 2);
+
+    @GameTest
+    public void supportedMinecraftRange(GameTestHelper h) throws Exception {
+        var dependency = FabricLoader.getInstance().getModContainer(NoFeatherTrample.MOD_ID).orElseThrow()
+                .getMetadata().getDependencies().stream()
+                .filter(entry -> entry.getModId().equals("minecraft")).findFirst().orElseThrow();
+        for (String id : new String[] { "26.4-snapshot-6", "26.4-snapshot-7", "26.4-snapshot-10",
+                "26.4-pre-1", "26.4-rc-1", "26.4" }) {
+            h.assertTrue(dependency.matches(Version.parse(McVersionLookup.normalizeVersion(id,
+                    McVersionLookup.getRelease(id)))), "Supported Minecraft version: " + id);
+        }
+        for (String id : new String[] { "26.3", "26.4-snapshot-1", "26.4-snapshot-5",
+                "26.4.1-pre-1", "26.4.1", "26.5-snapshot-1", "26.5", "27.1" }) {
+            h.assertTrue(!dependency.matches(Version.parse(McVersionLookup.normalizeVersion(id,
+                    McVersionLookup.getRelease(id)))), "Excluded Minecraft version: " + id);
+        }
+        h.succeed();
+    }
 
     private ItemStack enchantedBoots(GameTestHelper h, int level) {
         var boots = new ItemStack(Items.DIAMOND_BOOTS);

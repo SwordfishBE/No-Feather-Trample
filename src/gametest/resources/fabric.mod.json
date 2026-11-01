@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "no_feather_trample-test",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "name": "No Feather Trample Tests",
   "environment": "*",
   "entrypoints": { "fabric-gametest": ["net.no_feather_trample.FarmlandGameTests"] }
